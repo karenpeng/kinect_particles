@@ -36,13 +36,16 @@ private:
   double mLastTime;
   Perlin mPerlin;
   float avgX, avgY;
-  Boolean drew = false;
   vector<Vec2f> zone;
+  float widthRatio;
+  float heightRatio;
+  float scaledAvgX;
+    float scaledAvgY;
 };
 
 void kinectBasicApp::prepareSettings( Settings* settings )
 {
-	settings->setWindowSize( 640, 480 );
+	settings->setWindowSize( 1280, 720 );
 }
 
 void kinectBasicApp::setup()
@@ -54,11 +57,13 @@ void kinectBasicApp::setup()
   controller = new ParticleController();
   
   for(int i=0; i< 30; i++){
-    float xPos = randFloat(0.0, 640.0);
+    float xPos = randFloat(0.0, 1280.0);
     float yPos = randFloat(0.0, 480.0);
     controller->addParticles(NUM_PARTICLES_PER_FRAME, Vec2f(xPos, yPos), randVec2f());
   }
-  
+  widthRatio = getWindowWidth() / 640;
+  heightRatio = getWindowHeight() / 480;
+  cout << heightRatio << endl;
 }
 
 void kinectBasicApp::mouseUp( MouseEvent event )
@@ -87,7 +92,7 @@ void kinectBasicApp::update()
 //	console() << "Accel: " << mKinect.getAccel() << std::endl;
   
   if(int(app::getElapsedSeconds()) % 6 == 0){
-    float xPos = randFloat(640.0);
+    float xPos = randFloat(1280.0);
     float yPos = randFloat(480.0);
     controller->addParticles(NUM_PARTICLES_PER_FRAME, Vec2f(xPos, yPos), randVec2f());
   }
@@ -97,7 +102,7 @@ void kinectBasicApp::update()
   float delta = (float)app::getFrameRate() / (1.0 / deltaTime);
   
   mLastTime = currentTime;
-  if(drew){
+  if(mDepthTexture){
     std::shared_ptr<uint16_t> depth = mKinect->getDepthData();
     
     float sumX = 0.0;
@@ -127,8 +132,10 @@ void kinectBasicApp::update()
       avgX = sumX / count;
       avgY = sumY / count;
     }
+    scaledAvgX = (640 - avgX) * widthRatio;
+    scaledAvgY = avgY * heightRatio;
     //this is super important!!!!!!!
-	  this->controller->update(delta, mPerlin, Vec2f(640-avgX, avgY));
+	  this->controller->update(delta, mPerlin, Vec2f(scaledAvgX, scaledAvgY));
     //cout << avgX << endl;
   }else{
     this->controller->update(delta, mPerlin, Vec2f(0.0, 0.0));
@@ -142,13 +149,11 @@ void kinectBasicApp::draw()
 
 	if( mDepthTexture ){
     gl::pushMatrices();
-    gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
-    gl::translate(Vec2f(getWindowWidth(), 0));
+    //gl::setMatricesWindow( 640, 480 );
+    gl::translate(Vec2f(640, 0));
     gl::scale(Vec3f(-1, 1, 1));
 		gl::draw( mDepthTexture );
-    
-    drew = true;
-  
+
   }
   
   gl::color( 0.8f, 0.0f, 0.0f );
@@ -159,6 +164,9 @@ void kinectBasicApp::draw()
   gl::color( 0.0f, 0.8f, 0.0f );
   gl::drawSolidEllipse(Vec2f(avgX, avgY), 14.0, 14.0);
   gl::popMatrices();
+  
+  gl::color(0.0f, 0.0f, 0.8f);
+  gl::drawSolidEllipse(Vec2f(scaledAvgX, scaledAvgY), 14.0f, 14.0f);
   gl::color( 1.0f, 1.0f, 1.0f );
 
 
