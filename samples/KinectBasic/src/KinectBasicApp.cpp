@@ -37,6 +37,8 @@ private:
   Perlin mPerlin;
   int count;
   float avgX, avgY;
+  Boolean drew = false;
+  vector<Vec2f> zone;
 };
 
 void kinectBasicApp::prepareSettings( Settings* settings )
@@ -53,7 +55,7 @@ void kinectBasicApp::setup()
   controller = new ParticleController();
   
   for(int i=0; i< 30; i++){
-    float xPos = randFloat(0.0, 640.0)+640.0;
+    float xPos = randFloat(0.0, 640.0);
     float yPos = randFloat(0.0, 480.0);
     controller->addParticles(NUM_PARTICLES_PER_FRAME, Vec2f(xPos, yPos), randVec2f());
   }
@@ -86,7 +88,7 @@ void kinectBasicApp::update()
 //	console() << "Accel: " << mKinect.getAccel() << std::endl;
   
   if(int(app::getElapsedSeconds()) % 6 == 0){
-    float xPos = randFloat(640.0)+640.0;
+    float xPos = randFloat(640.0);
     float yPos = randFloat(480.0);
     controller->addParticles(NUM_PARTICLES_PER_FRAME, Vec2f(xPos, yPos), randVec2f());
   }
@@ -96,32 +98,16 @@ void kinectBasicApp::update()
   float delta = (float)app::getFrameRate() / (1.0 / deltaTime);
   
   mLastTime = currentTime;
-  if(count != 0){
-	  this->controller->update(delta, mPerlin, Vec2f(avgX+640.0, avgY));
-  }else{
-    this->controller->update(delta, mPerlin, Vec2f(-20.0, -20.0));
-  }
-  
-}
-
-void kinectBasicApp::draw()
-{
-	gl::clear( Color( 0, 0, 0 ) );
-  gl::pushMatrices();
-  gl::scale(Vec3f( -1, 1, 1 ));
-	gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
-	if( mDepthTexture ){
-		gl::draw( mDepthTexture );
-  
+  if(drew){
     std::shared_ptr<uint16_t> depth = mKinect->getDepthData();
-  
+    
     float sumX = 0.0;
     float sumY = 0.0;
     count = 0;
     float minThreshold = MINTHRESHOLD;
     float maxThreshold = MAXTHRESHOLD;
     
-    
+    zone.clear();
     for (int y = 0; y<480; y++){
       for (int x = 0; x<640; x++){
         float data = depth.get()[x+y*640];  // this will return the actual depth value for the pixel (x,y);
@@ -132,8 +118,8 @@ void kinectBasicApp::draw()
           sumX += x;
           sumY += y;
           count ++;
-          gl::color( 0.8f, 0.0f, 0.0f );
-          gl::drawSolidEllipse(Vec2f(x, y), 1.0, 1.0);
+          zone.push_back(Vec2f(x,y));
+
         }
       }
     }
@@ -141,16 +127,56 @@ void kinectBasicApp::draw()
     if(count != 0){
       avgX = sumX / count;
       avgY = sumY / count;
-      gl::color( 0.0f, 0.8f, 0.0f );
-      gl::drawSolidEllipse(Vec2f(avgX, avgY), 14.0, 14.0);
+      //gl::color( 0.0f, 0.8f, 0.0f );
+      
+      //gl::popMatrices();
     }
+	  this->controller->update(delta, mPerlin, Vec2f(avgX, avgY));
+    //cout << avgX << endl;
+  }else{
+    this->controller->update(delta, mPerlin, Vec2f(0.0, 0.0));
   }
-  gl::color( 1.0f, 1.0f, 1.0f );
-	if( mColorTexture )
-		gl::draw( mColorTexture, Vec2i( 640, 0 ) );
   
+}
+
+void kinectBasicApp::draw()
+{
+  gl::clear( Color( 0, 0, 0 ) );
+  
+  gl::color( 0.0f, 0.8f, 0.0f );
+  gl::drawSolidEllipse(Vec2f(avgX, avgY), 14.0, 14.0);
+
+  gl::color( 0.8f, 0.0f, 0.0f );
+  for(int i=0; i<zone.size(); i++){
+    gl::drawSolidEllipse(zone[i], 1.0, 1.0);
+    //cout << zone[i] << endl;
+  }
+  
+  gl::color( 1.0f, 1.0f, 1.0f );
+
+	if( mDepthTexture ){
+    gl::pushMatrices();
+    gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
+    gl::translate(Vec2f(getWindowWidth()/2, 0));
+    gl::scale(Vec3f(-1, 1, 1));
+		gl::draw( mDepthTexture );
+    gl::popMatrices();
+    drew = true;
+  
+  
+  	if( mColorTexture )
+    //gl::draw(mColorTexture, Vec2i( 640, 0 ));
+
+    //gl::pushMatrices();
+    //gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
+    //gl::translate(Vec2f(getWindowWidth(), 0));
+    //gl::scale(Vec3f(-1, 1, 1));
+    //gl::draw(mColorTexture, Vec2i( -1280, 0 ));
+		//gl::draw( mColorTexture, Vec2i( 0, 0 ) );
+    //gl::popMatrices();
+
   this->controller->draw();
-  gl::popMatrices();
+  }
 }
 
 
