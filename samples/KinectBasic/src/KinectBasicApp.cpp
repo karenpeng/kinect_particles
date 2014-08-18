@@ -35,7 +35,6 @@ private:
   ParticleController *controller;
   double mLastTime;
   Perlin mPerlin;
-  int count;
   float avgX, avgY;
   Boolean drew = false;
   vector<Vec2f> zone;
@@ -43,7 +42,7 @@ private:
 
 void kinectBasicApp::prepareSettings( Settings* settings )
 {
-	settings->setWindowSize( 1280, 480 );
+	settings->setWindowSize( 640, 480 );
 }
 
 void kinectBasicApp::setup()
@@ -82,8 +81,8 @@ void kinectBasicApp::update()
 	if( mKinect->checkNewDepthFrame() )
 		mDepthTexture = mKinect->getDepthImage();
 	
-	if( mKinect->checkNewVideoFrame() )
-		mColorTexture = mKinect->getVideoImage();
+//	if( mKinect->checkNewVideoFrame() )
+//		mColorTexture = mKinect->getVideoImage();
 	
 //	console() << "Accel: " << mKinect.getAccel() << std::endl;
   
@@ -103,7 +102,7 @@ void kinectBasicApp::update()
     
     float sumX = 0.0;
     float sumY = 0.0;
-    count = 0;
+    int count = 0;
     float minThreshold = MINTHRESHOLD;
     float maxThreshold = MAXTHRESHOLD;
     
@@ -127,11 +126,9 @@ void kinectBasicApp::update()
     if(count != 0){
       avgX = sumX / count;
       avgY = sumY / count;
-      //gl::color( 0.0f, 0.8f, 0.0f );
-      
-      //gl::popMatrices();
     }
-	  this->controller->update(delta, mPerlin, Vec2f(avgX, avgY));
+    //this is super important!!!!!!!
+	  this->controller->update(delta, mPerlin, Vec2f(640-avgX, avgY));
     //cout << avgX << endl;
   }else{
     this->controller->update(delta, mPerlin, Vec2f(0.0, 0.0));
@@ -142,41 +139,30 @@ void kinectBasicApp::update()
 void kinectBasicApp::draw()
 {
   gl::clear( Color( 0, 0, 0 ) );
-  
-  gl::color( 0.0f, 0.8f, 0.0f );
-  gl::drawSolidEllipse(Vec2f(avgX, avgY), 14.0, 14.0);
-
-  gl::color( 0.8f, 0.0f, 0.0f );
-  for(int i=0; i<zone.size(); i++){
-    gl::drawSolidEllipse(zone[i], 1.0, 1.0);
-    //cout << zone[i] << endl;
-  }
-  
-  gl::color( 1.0f, 1.0f, 1.0f );
 
 	if( mDepthTexture ){
     gl::pushMatrices();
     gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
-    gl::translate(Vec2f(getWindowWidth()/2, 0));
+    gl::translate(Vec2f(getWindowWidth(), 0));
     gl::scale(Vec3f(-1, 1, 1));
 		gl::draw( mDepthTexture );
-    gl::popMatrices();
+    
     drew = true;
   
+  }
   
-  	if( mColorTexture )
-    //gl::draw(mColorTexture, Vec2i( 640, 0 ));
+  gl::color( 0.8f, 0.0f, 0.0f );
+  for(int i=0; i<zone.size(); i++){
+    gl::drawSolidEllipse(zone[i], 1.0, 1.0);
+  }
+  
+  gl::color( 0.0f, 0.8f, 0.0f );
+  gl::drawSolidEllipse(Vec2f(avgX, avgY), 14.0, 14.0);
+  gl::popMatrices();
+  gl::color( 1.0f, 1.0f, 1.0f );
 
-    //gl::pushMatrices();
-    //gl::setMatricesWindow( getWindowWidth(), getWindowHeight() );
-    //gl::translate(Vec2f(getWindowWidth(), 0));
-    //gl::scale(Vec3f(-1, 1, 1));
-    //gl::draw(mColorTexture, Vec2i( -1280, 0 ));
-		//gl::draw( mColorTexture, Vec2i( 0, 0 ) );
-    //gl::popMatrices();
 
   this->controller->draw();
-  }
 }
 
 

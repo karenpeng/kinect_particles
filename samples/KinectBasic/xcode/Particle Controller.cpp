@@ -25,8 +25,8 @@ void ParticleController::addParticles(int amt, const Vec2f &position, const Vec2
   
   for (int i = 0; i < max; i++) {
     
-    Vec2f offset = SPRAY * powf(Rand::randFloat(), 2.0f) * Rand::randVec2f();
-    Vec2f vel = clampedVelocity * 0.5 + randVec2f();
+//    Vec2f offset = SPRAY * powf(Rand::randFloat(), 2.0f) * Rand::randVec2f();
+//    Vec2f vel = clampedVelocity * 0.5 + randVec2f();
    // vel.x -= LEFTDRIFT;
     
     Particle *p = new Particle();
@@ -40,7 +40,7 @@ void ParticleController::addParticles(int amt, const Vec2f &position, const Vec2
 void ParticleController::update(float delta, Perlin &perlin, Vec2f movingPoint ) {
   for (std::list<Particle*>::iterator i = mParticles.begin(); i != mParticles.end();) {
     Particle *p = (*i);
-    if (p->mIsDead || p->mPosition.x>1280.0 || p->mPosition.x<0.0 || p->mPosition.y<0.0 || p->mPosition.y>480.0) {
+    if (p->mIsDead || p->mPosition.x>640.0 || p->mPosition.x<0.0 || p->mPosition.y<0.0 || p->mPosition.y>480.0) {
       i = mParticles.erase(i);
       delete p;
     } else {
