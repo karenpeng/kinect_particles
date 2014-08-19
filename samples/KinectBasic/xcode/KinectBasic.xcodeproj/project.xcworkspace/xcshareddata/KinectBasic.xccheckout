@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D84F1CD6-9B50-4338-AA8B-B8580386ABF7</string>
+	<string>C676EFB5-B0E3-414F-B5C2-D4E9A9F76F4D</string>
 	<key>IDESourceControlProjectName</key>
 	<string>KinectBasic</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>EE908DA7-8918-423C-8913-3F37862F2CFB</key>
-		<string>https://github.com/cinder/Cinder-Kinect.git</string>
+		<key>3981FD9C-04C8-4CEC-A23D-7ADC68CE70F2</key>
+		<string>ssh://github.com/karenpeng/kinect_particles.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>samples/KinectBasic/xcode/KinectBasic.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EE908DA7-8918-423C-8913-3F37862F2CFB</key>
+		<key>3981FD9C-04C8-4CEC-A23D-7ADC68CE70F2</key>
 		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/cinder/Cinder-Kinect.git</string>
+	<string>ssh://github.com/karenpeng/kinect_particles.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EE908DA7-8918-423C-8913-3F37862F2CFB</string>
+	<string>3981FD9C-04C8-4CEC-A23D-7ADC68CE70F2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EE908DA7-8918-423C-8913-3F37862F2CFB</string>
+			<string>3981FD9C-04C8-4CEC-A23D-7ADC68CE70F2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Cinder-Kinect</string>
 		</dict>

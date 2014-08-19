@@ -6,8 +6,8 @@ cProcessInfoPlistFile /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-
 cCpResource /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/resources/CinderApp.icns build/Debug/KinectBasic.app/Contents/Resources/CinderApp.icns
 cProcessPCH++ /var/folders/y2/q97pkn6x21b1nbbw54rrjrmc0000gp/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/KinectBasic_Prefix-boskomacyvwzcfehbojdbtemzitd/KinectBasic_Prefix.pch.pch KinectBasic_Prefix.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cProcessPCH /var/folders/y2/q97pkn6x21b1nbbw54rrjrmc0000gp/C/com.apple.DeveloperTools/5.1.1-5B1008/Xcode/SharedPrecompiledHeaders/KinectBasic_Prefix-agpnwlruxvchtrcbzsrjvoztavmv/KinectBasic_Prefix.pch.pch KinectBasic_Prefix.pch normal i386 c com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/Particle\ Controller.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/xcode/Particle\ Controller.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/KinectBasicApp.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/src/KinectBasicApp.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/Particle\ Controller.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/xcode/Particle\ Controller.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/Particle.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/xcode/Particle.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/CinderFreenect.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/src/CinderFreenect.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/cameras.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/src/freenect/cameras.c normal i386 c com.apple.compilers.llvm.clang.1_0.compiler
@@ -4699,7 +4699,7 @@ t1407353255
 s1194
 
 N/Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/xcode/build/Debug/KinectBasic.app
-t1408399889
+t1408399909
 s102
 
 N/Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/samples/KinectBasic/xcode/build/Debug/KinectBasic.app/Contents/Info.plist
@@ -5126,7 +5126,7 @@ r0
 
 CCheck dependencies
 r0
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies6956dea3b1a2b941^4dd8dea3b1a2b941^---0#1#1#--18"Check dependencies36"1211568A-EBF4-4316-A83B-1C752D11EDD5-
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies616e93a401a4b941^2976bca401a4b941^---0#1#1#--18"Check dependencies36"58309327-FC58-45F4-9D00-A6E1D0B91D60-
 
 CCompileC build/KinectBasic.build/Debug/KinectBasic.build/Objects-normal/i386/CinderFreenect.o /Users/kpeng/Documents/cinder_0.8.5_mac/experiment/Cinder-Kinect/src/CinderFreenect.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 s429030275.588240
